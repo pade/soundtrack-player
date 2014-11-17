@@ -13,6 +13,7 @@ This file is part of the software.
 '''
 
 import os
+import player
 
 class MediaFile(object):
     '''
@@ -20,29 +21,35 @@ class MediaFile(object):
     '''
 
 
-    def __init__(self, filename = ""):
+    def __init__(self, filename):
         '''
-        Constructor
+        Create a MediaFile object
+        @param filename: the full path of a sound track
         '''
         self._name = os.path.basename(filename)
         self._path = os.path.abspath(os.path.dirname(filename))
         self._type = ""
-        self._duration = 0
+        self._media = player.Media(filename)
         
     def getFullName(self):
         ''' Return the full name (with absolute path) of the file '''
         
-        fullname = None
-        if self.name != "":
-            fullname = self.path + os.pathsep + self.name
+        fullname = self._path + os.pathsep + self._name
         return fullname
     
     def getName(self):
         ''' Return the filename (without path) '''
+        
         return self._name
     
     def setName(self, name):
         ''' To change the displayed name of the media '''
+        
         self._name = name
         
+    def getDuration(self):
+        ''' return the duration of the track
+        @return: an integer that represents the track duration in second '''
+        
+        return self._media.getDuration()
     
