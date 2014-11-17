@@ -24,10 +24,10 @@ class MediaFile(object):
         '''
         Constructor
         '''
-        self.name = os.path.basename(filename)
-        self.path = os.path.abspath(os.path.dirname(filename))
-        self.type = ""
-        self.duration = 0
+        self._name = os.path.basename(filename)
+        self._path = os.path.abspath(os.path.dirname(filename))
+        self._type = ""
+        self._duration = 0
         
     def getFullName(self):
         ''' Return the full name (with absolute path) of the file '''
@@ -36,4 +36,13 @@ class MediaFile(object):
         if self.name != "":
             fullname = self.path + os.pathsep + self.name
         return fullname
+    
+    def getName(self):
+        ''' Return the filename (without path) '''
+        return self._name
+    
+    def setName(self, name):
+        ''' To change the displayed name of the media '''
+        self._name = name
+        
     
