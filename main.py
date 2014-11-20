@@ -5,17 +5,22 @@ Created on 27 août 2014
 '''
 
 
-from PyQt5 import QtMultimedia
-from PyQt5.QtCore import QUrl
-
+from mediafile import MediaFile
+import vlc
+import os
 
 def main():
+    
+    fichier = "./test/example.mp3"
 
-    player = QtMultimedia.QMediaPlayer()
-    file = QUrl.fromLocalFile("/home/dassier/workspace/qtaudio/accident.mp3")
-    media = QtMultimedia.QMediaContent(file)
-    player.setMedia(media)
+    m = MediaFile(fichier)
 
+    vlcInstance = vlc.Instance()
+    player = vlcInstance.media_player_new()
+    player.set_media(m.getMedia())
+    player.play()
+    
+    input("Press a key")
     
     
 

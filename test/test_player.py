@@ -19,6 +19,7 @@ import unittest
 # try import: necessary because in case of starting only this test, path is not set at this point
 try:
     import player
+    import mediafile
 except:
     pass
 
@@ -36,12 +37,25 @@ class TestPlayer(unittest.TestCase):
 
     def test_duration(self):
         ''' Create a new media and get its duration'''
-        m = player.Media("example.mp3")
+        f = mediafile.MediaFile("example.mp3")
+        m = player.Player(f)
         duration = m.getDuration()
-        self.assertEqual(duration, 170)
+        self.assertEqual(duration, 5)
         
+    def test_errors(self):
+        ''' Check if an error is raise in case of an invalid filename '''
+        with self.assertRaises(mediafile.MediaFileNotFound) as e:
+            mediafile.MediaFile("not existing file")
+            self.assertEqual(e.message, "File not found: not existing file")
         
-
+    def test_play(self):
+        ''' Play the track '''
+        f = mediafile.MediaFile("example.mp3")
+        m = player.Player(f)
+        m.repeat(False)
+        m.play()
+        input("Press a key...")
+        
 def suite():
     suite = unittest.TestSuite()
     suite.addTest(unittest.TestLoader().loadTestsFromTestCase(TestPlayer))
@@ -52,6 +66,7 @@ if __name__ == "__main__":
     # Set parent directory in path, to be able to import module
     sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
     import player
+    import mediafile
     
     suite = suite()
     unittest.TextTestRunner(verbosity=2).run(suite)  

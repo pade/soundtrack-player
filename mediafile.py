@@ -15,26 +15,46 @@ This file is part of the software.
 import os
 import player
 
+class MediaFileError(Exception):
+    
+    def __init__(self, message="MediaFileError"):
+        # Call the base class constructor with the parameters it needs
+        super(MediaFileError, self).__init__(message)   
+        self.message = message
+        
+    def __str__(self):
+        return self.message
+
+class MediaFileNotFound(MediaFileError):
+    
+    def __init__(self, filename):
+        self.message = "File not found: {}".format(filename)
+        super(MediaFileNotFound, self).__init__(self.message)
+
+
 class MediaFile(object):
     '''
     Sound file class
     '''
-
 
     def __init__(self, filename):
         '''
         Create a MediaFile object
         @param filename: the full path of a sound track
         '''
+        
+        if  not os.path.isfile(filename):
+            raise MediaFileNotFound(filename)
+
         self._name = os.path.basename(filename)
         self._path = os.path.abspath(os.path.dirname(filename))
         self._type = ""
-        self._media = player.Media(filename)
+#         self._media = player.Player(filename)        
         
     def getFullName(self):
         ''' Return the full name (with absolute path) of the file '''
         
-        fullname = self._path + os.pathsep + self._name
+        fullname = os.path.join(self._path, self._name)
         return fullname
     
     def getName(self):
@@ -44,12 +64,13 @@ class MediaFile(object):
     
     def setName(self, name):
         ''' To change the displayed name of the media '''
-        
         self._name = name
         
-    def getDuration(self):
-        ''' return the duration of the track
-        @return: an integer that represents the track duration in second '''
-        
-        return self._media.getDuration()
+#     def getDuration(self):
+#         ''' return the duration of the track
+#         @return: an integer that represents the track duration in second '''
+#         
+#         return self._media.getDuration()
     
+#     def getMedia(self):
+#         return self._media.getMedia()
