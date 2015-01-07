@@ -31,7 +31,7 @@
      <rect>
       <x>140</x>
       <y>110</y>
-      <width>381</width>
+      <width>528</width>
       <height>111</height>
      </rect>
     </property>
@@ -49,32 +49,63 @@
       <number>5</number>
      </property>
      <item>
+      <widget class="QPushButton" name="closeButton">
+       <property name="text">
+        <string>Close</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QLineEdit" name="title"/>
+       </item>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_2">
          <item>
-          <widget class="QLineEdit" name="lineEdit"/>
+          <widget class="QLabel" name="duration">
+           <property name="text">
+            <string>0:00</string>
+           </property>
+          </widget>
          </item>
          <item>
-          <widget class="QSlider" name="horizontalSlider">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
+          <widget class="QProgressBar" name="progress">
+           <property name="value">
+            <number>24</number>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="currentduration">
+           <property name="text">
+            <string>0:00</string>
            </property>
           </widget>
          </item>
         </layout>
        </item>
-       <item>
-        <widget class="QProgressBar" name="progressBar">
-         <property name="value">
-          <number>24</number>
-         </property>
-        </widget>
-       </item>
       </layout>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QLabel" name="volumeIcone">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap>volume.png</pixmap>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSlider" name="volumeSlider">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="actionButton">
        <property name="minimumSize">
         <size>
          <width>100</width>
